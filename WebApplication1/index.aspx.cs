@@ -23,7 +23,7 @@ namespace EjemploWebForm
             try
             {
                 string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
-                string SQL = "SELECT * FROM usuarios";
+                string SQL = "SELECT * FROM usuario";
                 SqlConnection conn = new SqlConnection(cadenaConexion);
                 conn.Open();
                 DataSet ds = new DataSet();
@@ -80,13 +80,20 @@ namespace EjemploWebForm
         {
             string codigo = lblIdUsuario.Text;
             string nombre = txtNombreUsuario.Text;
+            string apellidos = txtApellidos.Text;
+            string mail = txtMail.Text;
+            string fNacimiento = txtFNacimiento.Text;
+            string password = txtpassword.Text;
+            string userid = txtuserid.Text;
+            
+
             string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
             int cod;
 
-            string SQL = "INSERT INTO usuarios(nombreUsuario) VALUES(" + nombre + ")";
+            string SQL = "INSERT INTO usuario(nombre,apellidos, mail, fNacimiento, password, userid, borrado) VALUES(" + nombre + "," + apellidos + "," + mail + "," + fNacimiento + "," + password + "," + userid + ", 0 )";
             if (Int32.TryParse(codigo, out cod) && cod > -1)
             {
-                SQL = "UPDATE usuarios SET nombreUsuario = '" + nombre + "' WHERE codigoUsuario =" + codigo;
+                SQL = "UPDATE usuario SET nombre = '" + nombre + "', apellidos = '" + apellidos + "', mail = '" + mail + "', fNacimiento = '" + fNacimiento + "', password = '" + password + "', userid = '" + userid + "', borrado = '0' WHERE codUsuario =" + codigo;
             }
 
             SqlConnection conn = null;
@@ -123,7 +130,7 @@ namespace EjemploWebForm
             string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
 
             string codigo = txtIdUsuario.Text;
-            string SQL = "DELETE FROM usuarios WHERE codigoUsuario=" + codigo;
+            string SQL = "DELETE FROM usuario WHERE codUsuario=" + codigo;
             try
             {
                 conn = new SqlConnection(cadenaConexion);
@@ -156,6 +163,11 @@ namespace EjemploWebForm
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             lblIdUsuario.Text = "-1";
             txtNombreUsuario.Text = "";
+            txtApellidos.Text = "";
+            txtFNacimiento.Text = "";
+            txtMail.Text = "";
+            txtpassword.Text = "";
+            txtuserid.Text = "";            
             sb.Append(@"<script>");
             sb.Append("$('#editModal').modal('show')");
             sb.Append(@"</script>");
