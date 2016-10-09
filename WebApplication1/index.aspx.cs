@@ -13,6 +13,8 @@ namespace EjemploWebForm
     public partial class index : System.Web.UI.Page
     {
         DataTable dt;
+        // string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+        //string cadenaConexion = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             cargaDatos();
@@ -22,8 +24,9 @@ namespace EjemploWebForm
         {
             try
             {
-                string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
-                string SQL = "SELECT * FROM usuario";
+                // string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+                string cadenaConexion = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
+                string SQL = "SELECT * FROM usuario WHERE borrado = 0";
                 SqlConnection conn = new SqlConnection(cadenaConexion);
                 conn.Open();
                 DataSet ds = new DataSet();
@@ -56,14 +59,13 @@ namespace EjemploWebForm
                         sb.Append(@"<script>");
                         sb.Append("$('#editModal').modal('show')");
                         sb.Append(@"</script>");
-
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "MostrarCreate", sb.ToString(), false);
 
                     }
                     break;
 
                 case "deleteUsuario":
                     {
-
                         txtIdUsuario.Text = codigo;
                         System.Text.StringBuilder sb = new System.Text.StringBuilder();
                         sb.Append(@"<script>");
@@ -83,17 +85,26 @@ namespace EjemploWebForm
             string apellidos = txtApellidos.Text;
             string mail = txtMail.Text;
             string fNacimiento = txtFNacimiento.Text;
+            DateTime fNac;
+            DateTime.TryParse(fNacimiento, out fNac);
             string password = txtpassword.Text;
             string userid = txtuserid.Text;
-            
 
-            string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+
+            // string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+            string cadenaConexion = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
             int cod;
-
-            string SQL = "INSERT INTO usuario(nombre,apellidos, mail, fNacimiento, password, userid, borrado) VALUES(" + nombre + "," + apellidos + "," + mail + "," + fNacimiento + "," + password + "," + userid + ", 0 )";
-            if (Int32.TryParse(codigo, out cod) && cod > -1)
+            string SQL;
+          
+            if (Int32.TryParse(codigo, out cod) && cod > 0)
             {
-                SQL = "UPDATE usuario SET nombre = '" + nombre + "', apellidos = '" + apellidos + "', mail = '" + mail + "', fNacimiento = '" + fNacimiento + "', password = '" + password + "', userid = '" + userid + "', borrado = '0' WHERE codUsuario =" + codigo;
+               
+                SQL = "UPDATE usuario SET nombre = '" + nombre + "', apellidos = '" + apellidos + "', mail = '" + mail + "', fNacimiento = '" + fNac + "', password = '" + password + "', userid = '" + userid + "' WHERE codUsuario ='" + codigo + "'";
+            }
+            else
+            {
+                
+                SQL = "INSERT INTO usuario(nombre,apellidos, mail, fNacimiento, password, userid) VALUES('" + nombre + "','" + apellidos + "','" + mail + "','" + fNac + "','" + password + "','" + userid + "')";
             }
 
             SqlConnection conn = null;
@@ -127,10 +138,13 @@ namespace EjemploWebForm
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             SqlConnection conn = null;
-            string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+            // string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+            string cadenaConexion = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
 
             string codigo = txtIdUsuario.Text;
-            string SQL = "DELETE FROM usuario WHERE codUsuario=" + codigo;
+            //string SQL = "DELETE FROM usuario WHERE codUsuario=" + codigo;
+            string SQL = "UPDATE usuario SET borrado = '1' WHERE codUsuario =" + codigo;
+
             try
             {
                 conn = new SqlConnection(cadenaConexion);
