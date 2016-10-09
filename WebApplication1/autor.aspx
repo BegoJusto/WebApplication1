@@ -1,10 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="EjemploWebForm.index" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="autor.aspx.cs" Inherits="EjemploWebForm.autor" %>
 
 <!DOCTYPE html>
 <html lang="es-es">
 <head runat="server">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8" />
-    <title></title>
+    <title>Gestión de Librería</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
@@ -15,72 +16,98 @@
 
 </head>
 <body>
-    <form id="form1" runat="server">
-        <asp:ScriptManager runat="server" ID="ScriptManager" />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
 
-        <div>
-            <asp:Menu ID="Menu1" runat="server">
-                <Items>
-                    <asp:MenuItem NavigateUrl="~/autor.aspx" Text="Pagina Autores" Value="Pagina Autores"></asp:MenuItem>
-                </Items>
-            </asp:Menu>
-            <asp:Button ID="btncrearAutor" runat="server" Text="Crear Autor" OnClick="btncrearAutor_Click" />
-            <asp:GridView DataKeyNames="codigoAutor" OnRowCommand="grdv_Autor_RowCommand" ID="grdv_Autor" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False">
-                <Columns>
-                    <asp:ButtonField CommandName="editAutor" Text="Editar" ControlStyle-CssClass="btn btn-info">
-                        <ControlStyle CssClass="btn btn-info" />
-                    </asp:ButtonField>
-                    <asp:ButtonField CommandName="deleteAutor" Text="Borrar" ControlStyle-CssClass="btn btn-danger">
-                        <ControlStyle CssClass="btn btn-danger" />
-                    </asp:ButtonField>
-                    <asp:BoundField DataField="codigoAutor" Visible="False" />
-                    <asp:BoundField DataField="nombreAutor" HeaderText="Nombre Autor" Visible="true" />
-                </Columns>
-            </asp:GridView>
+                <form id="form1" runat="server" class="form-horizontal">
+                    <asp:ScriptManager runat="server" ID="ScriptManager" />
 
-
-            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="exampleModalLabel">Formulario</h4>
-                        </div>
-                        <div class="modal-body">
-                            <asp:Label runat="server" ID="lblIdAutor" Visible="false" Text=""></asp:Label>
-                            <asp:TextBox ID="txtNombreAutor" runat="server" Text=""></asp:TextBox>
-                        </div>
-                        <div class="modal-footer">
-
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                            <asp:Button runat="server" OnClick="btnGuardarAutor_Click" ID="btnGuardarAutor" Text="Guardar" />
+                    <div class="row center-block">
+                        <div class="col-md-3">
+                            <asp:Menu ID="Menu1" runat="server">
+                                <Items>
+                                    <asp:MenuItem NavigateUrl="~/index.aspx" Text="Pagina principal" Value="Pagina principal"></asp:MenuItem>
+                                    <asp:MenuItem NavigateUrl="~/autor.aspx" Text="Autores" Value="Autores"></asp:MenuItem>
+                                </Items>
+                            </asp:Menu>
                         </div>
                     </div>
-                </div>
-            </div>
+                    <h3 style="color:blue">Autores</h3>
+                    <div class="row center-block">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <asp:UpdatePanel runat="server" ID="upPanelAutor">
+                                <ContentTemplate>
+                                    <asp:GridView DataKeyNames="codAutor" OnRowCommand="grdv_Autor_RowCommand" ID="grdv_Autor" runat="server" AllowPaging="True" 
+                                        AllowSorting="True" AutoGenerateColumns="False" BorderColor="Beige" HeaderStyle-Font-Size="Medium" HeaderStyle-VerticalAlign="Middle" 
+                                        HeaderStyle-HorizontalAlign="Center">
+                                        <Columns>
+                                            <asp:BoundField DataField="codAutor" Visible="False" />
+                                            <asp:BoundField DataField="nombre" HeaderText="Nombre" Visible="true"  ItemStyle-Width="150px" />
 
-            <div class="modal fade" id="deleteConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id=""></h4>
-                        </div>
-                        <div class="modal-body">
-                            <asp:Label ID="lblMensaje" runat="server" Text="¿Esta usted seguro que desea borrar?"></asp:Label>
-
-                            <asp:TextBox ID="txtIdAutor" runat="server" Enabled="false" Visible="false"></asp:TextBox>
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <asp:Button ID="btnDelete" runat="server" OnClick="" Text="Borrar" />
+                                            <asp:ButtonField CommandName="editAutor" Text="Editar" ControlStyle-CssClass="btn btn-info">
+                                                <ControlStyle CssClass="btn btn-info"   Width="75px"/>
+                                            </asp:ButtonField>
+                                            <asp:ButtonField CommandName="deleteAutor" Text="Borrar" ControlStyle-CssClass="btn btn-danger">
+                                                <ControlStyle CssClass="btn btn-danger"   Width="75px"/>
+                                            </asp:ButtonField>
+                                        </Columns>
+                                    </asp:GridView>
+                                    <asp:Button ID="btncrearAutor" runat="server" Text="Crear Autor" OnClick="btncrearAutor_Click"   Width="150px" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
                     </div>
-                </div>
+                    <div class="modal fade row" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content col-md-12 col-xs-12">
+                                <div class="modal-header col-md-8 col-xs-6">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h3 class="modal-title" id="exampleModalLabel">Formulario</h3>
+                                </div>
+                                <div class="modal-body col-md-8 col-xs-8">
+                                    <asp:Label runat="server" ID="lblIdAutor" Visible="false" Text=""></asp:Label>
+
+                                    <div class="form-group">
+                                        <div class="col-md-8">
+                                            <asp:Label runat="server" ID="lblNombreAutor" Visible="true" Text="Nombre de Autor"></asp:Label>
+                                            <asp:TextBox ID="txtNombreAutor" runat="server" Text=""></asp:TextBox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                    <asp:Button runat="server" class="btn btn-primary" OnClick="btnGuardarAutor_Click" ID="btnGuardarAutor" Text="Guardar" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="deleteConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id=""></h4>
+                                </div>
+                                <div class="modal-body">
+                                    <asp:Label ID="lblMensaje" runat="server" Text="¿Esta usted seguro que desea borrar?"></asp:Label>
+
+                                    <asp:TextBox ID="txtIdAutor" runat="server" Enabled="false" Visible="false"></asp:TextBox>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                    <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Borrar" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
             </div>
         </div>
-    </form>
+    </div>
 </body>
 </html>

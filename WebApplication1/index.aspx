@@ -17,7 +17,7 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
 
                 <form id="form1" runat="server" class="form-horizontal">
                     <asp:ScriptManager runat="server" ID="ScriptManager" />
@@ -27,33 +27,37 @@
                             <asp:Menu ID="Menu1" runat="server">
                                 <Items>
                                     <asp:MenuItem NavigateUrl="~/index.aspx" Text="Pagina principal" Value="Pagina principal"></asp:MenuItem>
+                                    <asp:MenuItem NavigateUrl="~/autor.aspx" Text="Autores" Value="Pagina principal"></asp:MenuItem>
                                 </Items>
                             </asp:Menu>
                         </div>
                     </div>
+                    <h3 style="color:blue">Página Principal</h3>
                     <div class="row center-block">
-                        <div class="col-md-12">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                             <asp:UpdatePanel runat="server" ID="upPanelUsuario">
                                 <ContentTemplate>
-                                    <asp:GridView DataKeyNames="codUsuario" OnRowCommand="grdv_Usuarios_RowCommand" ID="grdv_Usuarios" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False">
+                                    <asp:GridView DataKeyNames="codUsuario" OnRowCommand="grdv_Usuarios_RowCommand" ID="grdv_Usuarios" runat="server" AllowPaging="True" 
+                                        AllowSorting="True" AutoGenerateColumns="False" BorderColor="Beige" HeaderStyle-Font-Size="Medium" HeaderStyle-VerticalAlign="Middle" 
+                                        HeaderStyle-HorizontalAlign="Center">
                                         <Columns>
                                             <asp:BoundField DataField="codUsuario" Visible="False" />
-                                            <asp:BoundField DataField="nombre" HeaderText="Nombre" Visible="true" />
-                                            <asp:BoundField DataField="apellidos" HeaderText="Apellidos" Visible="true" />
-                                            <asp:BoundField DataField="mail" HeaderText="Mail" Visible="true" />
-                                            <asp:BoundField DataField="fNacimiento" HeaderText="Fec Nac" Visible="true" />
-                                            <asp:BoundField DataField="password" HeaderText="Password" Visible="true" />
-                                            <asp:BoundField DataField="userid" HeaderText="Userid" Visible="true" />
-                                            <asp:BoundField DataField="borrado" HeaderText="Borrado" Visible="false" />
+                                            <asp:BoundField DataField="nombre" HeaderText="Nombre" Visible="true" ItemStyle-Width="150px" />
+                                            <asp:BoundField DataField="apellidos" HeaderText="Apellidos" Visible="true" ItemStyle-Width="150px" />
+                                            <asp:BoundField DataField="mail" HeaderText="Mail" Visible="true" ItemStyle-Width="150px" />
+                                            <asp:BoundField DataField="fNacimiento" HeaderText="Fec Nac" Visible="true" ItemStyle-Width="150px" />
+                                            <asp:BoundField DataField="password" HeaderText="Password" Visible="true" ItemStyle-Width="150px" />
+                                            <asp:BoundField DataField="userid" HeaderText="Userid" Visible="true" ItemStyle-Width="150px"/>
+                                            <asp:BoundField DataField="borrado" HeaderText="Borrado" Visible="false" ItemStyle-Width="150px"/>
                                             <asp:ButtonField CommandName="editUsuario" Text="Editar" ControlStyle-CssClass="btn btn-info">
-                                                <ControlStyle CssClass="btn btn-info" />
+                                                <ControlStyle CssClass="btn btn-info"  Width="75px"/>
                                             </asp:ButtonField>
                                             <asp:ButtonField CommandName="deleteUsuario" Text="Borrar" ControlStyle-CssClass="btn btn-danger">
-                                                <ControlStyle CssClass="btn btn-danger" />
+                                                <ControlStyle CssClass="btn btn-danger" Width="75px"/>
                                             </asp:ButtonField>
                                         </Columns>
                                     </asp:GridView>
-                                    <asp:Button ID="btncrearUsuario" runat="server" Text="Crear Usuario" OnClick="btncrearUsuario_Click" />
+                                    <asp:Button ID="btncrearUsuario" runat="server" Text="Crear Usuario" OnClick="btncrearUsuario_Click"   Width="150px" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
