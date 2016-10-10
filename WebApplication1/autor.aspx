@@ -61,11 +61,11 @@
                     <div class="modal fade row" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content col-md-12 col-xs-12">
-                                <div class="modal-header col-md-8 col-xs-6">
+                                <div class="modal-header col-md-12 col-xs-12">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <h3 class="modal-title" id="exampleModalLabel">Formulario</h3>
                                 </div>
-                                <div class="modal-body col-md-8 col-xs-8">
+                                <div class="modal-body col-md-12 col-xs-12">
                                     <asp:Label runat="server" ID="lblIdAutor" Visible="false" Text=""></asp:Label>
 
                                     <div class="form-group">

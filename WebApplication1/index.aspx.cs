@@ -24,8 +24,8 @@ namespace EjemploWebForm
         {
             try
             {
-                // string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
-                string cadenaConexion = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
+                string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+                //string cadenaConexion = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
                 string SQL = "SELECT * FROM usuario WHERE borrado = 0";
                 SqlConnection conn = new SqlConnection(cadenaConexion);
                 conn.Open();
@@ -91,8 +91,8 @@ namespace EjemploWebForm
             string userid = txtuserid.Text;
 
 
-            // string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
-            string cadenaConexion = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
+            string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+            // string cadenaConexion = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
             int cod;
             string SQL;
           
@@ -138,8 +138,8 @@ namespace EjemploWebForm
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             SqlConnection conn = null;
-            // string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
-            string cadenaConexion = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
+            string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+            // string cadenaConexion = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
 
             string codigo = txtIdUsuario.Text;
             //string SQL = "DELETE FROM usuario WHERE codUsuario=" + codigo;
