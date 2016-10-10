@@ -24,23 +24,32 @@ namespace EjemploWebForm.DAL
 
         public IList<Usuario> getAll()
         {
-            throw new NotImplementedException();
+            IList<Usuario> usuarios = null;
+            const string SQL = "obtenerUsuarios";
+
+            using (SqlConnection conexion = new SqlConnection(conexionString))
+            {
+                SqlCommand cmd = new SqlCommand(SQL, conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                conexion.Open();
+            }
+
+            return usuarios;
         }
 
         public Usuario getById(Guid codigo)
         {
             Usuario usuario = null;
-            const string SQL = "";
+            const string SQL = "getUsuarioById";
             using (SqlConnection conexion = new SqlConnection(conexionString))
             {
 
-                SqlCommand command = conexion.CreateCommand();
-                command.CommandText = SQL;
+                SqlCommand command = new SqlCommand(SQL, conexion);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@pUsuarioId", codigo);
+                command.Parameters.AddWithValue("@pUsuarioId", codigo); //pUsuarioId se llama así en su procedimiento almacenado
                 command.Connection = conexion;
                 conexion.Open();
-                ;
+                
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
@@ -60,6 +69,12 @@ namespace EjemploWebForm.DAL
             Usuario usuario = new Usuario();
             usuario.CodigoUsuario = new Guid(reader["codigoUsuario"].ToString());
             usuario.Nombre = reader["nombreUsuario"].ToString();
+            usuario.Apellidos = reader["apellidos"].ToString();
+            usuario.Mail = reader["mail"].ToString();
+            usuario.Userid = reader["userid"].ToString();
+            usuario.Password = reader["password"].ToString();
+            usuario.FNacimiento = Convert.ToDateTime(reader["fNacimiento"].ToString());
+
             return usuario;
         }
 

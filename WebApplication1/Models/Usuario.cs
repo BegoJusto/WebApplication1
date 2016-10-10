@@ -12,6 +12,8 @@ namespace WebApplication1.DAL
         private string _nombre;
         private string _apellidos;
         private DateTime _fNacimiento;
+        private string _mail;
+        private string _userid;
 
         public Usuario()
         {
@@ -19,6 +21,7 @@ namespace WebApplication1.DAL
             _nombre = "";
             _apellidos = "";
             _fNacimiento = new DateTime();
+            _mail = "";
         }
 
         public Guid CodigoUsuario
